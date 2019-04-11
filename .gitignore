@@ -1,0 +1,56 @@
+/vendor/
+/resources/vendor/
+node_modules/
+bower_components/
+composer.lock
+.vscode/settings.json
+
+# Laravel 4 specific
+bootstrap/compiled.php
+app/storage/
+
+# Laravel 5 & Lumen specific
+bootstrap/cache/
+.env.*.php
+.env.php
+.env
+
+# Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
+.rocketeer/
+
+_ide_helper.php
+/.idea
+/public/appfiles
+./public/files/viabilidade/export.xlsx
+
+# Php cs fixer cache
+.php_cs.dist
+.php_cs.cache
+
+# Vim and Ctags
+tags
+tags.lock
+tags.temp
+storage/cte/captura-cte.log
+storage/nfe/captura-nfe.log
+storage/nfe/producao/temporarias/201707/-downnfe.xml
+storage/nfe/producao/temporarias/201707/-retDownnfe.xml
+storage/nfe/producao/temporarias/201708/-downnfe.xml
+storage/nfe/producao/temporarias/201708/-retDownnfe.xml
+bildsys.sql
+*.sublime-project
+*.sublime-workspace
+*.map
+
+storage/app/public/\.DS_Store
+
+.tern-port
+./**/.tern-port
+
+todo
+/storage/certs/
+resources/assets/js/pre-compiled
+storage/nfe/producao/eventos
+.vscode
+/.DS_Store
+.DS_Store
