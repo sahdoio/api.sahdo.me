@@ -43,18 +43,8 @@ class Post
     public function all()
     {
         try {
-            $status = $this->database->insertDocument([
-                'id' => 1,
-                'admin_user_id' => 1,
-                'title' => 'Teste',
-                'body' => 'Este é um teste',
-                'created_at' => new UTCDateTime(new \DateTime()),
-                'timestamp' => time(),
-            ],
-                'posts'
-            );
-
-            return $status;
+            $document = $this->database->getDocuments('posts', 99999);
+            return $document;
         }
         catch (Execption $e) {
             return false;

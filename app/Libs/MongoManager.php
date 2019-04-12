@@ -146,7 +146,6 @@ class MongoManager
             );
         }
 
-
         return $documents;
     }
 
@@ -237,10 +236,23 @@ class MongoManager
      */
     public function getDocuments($collection, $limit=10, $sort=null)
     {
-        if (isset($sort)) $documents = $this->database->$collection->find()->limit($limit)->sort($sort);
-        else $documents = $this->database->$collection->find()->limit($limit);
-
-        //return iterator_to_array($documents);
+        if (isset($sort)) {
+            $documents = $this->database->$collection->find(
+                [],
+                [
+                    'limit' => $limit,
+                    'sort' => $sort
+                ]
+            );
+        }
+        else {
+            $documents = $this->database->$collection->find(
+                [],
+                [
+                    "limit" => $limit
+                ]
+            );
+        }
 
         $res = array();
 

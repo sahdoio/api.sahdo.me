@@ -25,6 +25,7 @@ class PostController extends Controller
      */
     public function one($id)
     {
+        $id = intval($id);
         $response = $this->post->one($id);
 
         if (!$response) {
@@ -34,7 +35,7 @@ class PostController extends Controller
             ];
         }
 
-        return response()->json($response)->withCallback($this->butler->getCallback());
+        return response()->json($response);
     }
 
     /**
@@ -51,7 +52,7 @@ class PostController extends Controller
             ];
         }
 
-        return response()->json($response)->withCallback($this->butler->getCallback());
+        return response()->json($response);
     }
 
     /**
