@@ -35,11 +35,11 @@ $router->get('/tester/mongo/aggregate', ['as' => 'tester.mongo.aggregate', 'uses
 ######################################
 */
 
-$router->group(['middleware' => 'butler'], function () use ($router) {
-    $router->get('/posts/{id}', ['as' => 'posts.one', 'uses' => 'PostController@getOne']);
-    $router->get('/posts', ['as' => 'tracker.all', 'uses' => 'PostController@getAll']);
-    $router->post('/posts', ['as' => 'posts.new', 'uses' => 'PostController@new']);
-});
+
+$router->get('/posts/{id}', ['as' => 'posts.one', 'uses' => 'PostController@one']);
+$router->get('/posts', ['as' => 'tracker.all', 'uses' => 'PostController@all']);
+$router->post('/posts', ['as' => 'posts.new', 'uses' => 'PostController@new']);
+
 
 
 /*

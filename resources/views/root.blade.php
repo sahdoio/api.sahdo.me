@@ -18,8 +18,8 @@
             min-height: 800px;
             text-align: center;
             background: #141E30;
-            background: -webkit-gradient(linear, left top, right top, from(#00212a), color-stop(60%, #009d58), to(#06626c));
-            background: linear-gradient(to right, #00212a 0%, #009d58 60%, #06626c 100%);
+            background: -webkit-gradient(linear, left top, right top, from(#00212a), color-stop(60%, #0096ae), to(#0096ae));
+            background: linear-gradient(to right, #00212a 0%, #0096ae 60%, #06626c 100%);
         }
 
         .main-title {
@@ -42,7 +42,7 @@
 </head>
 <body>
     <div class="main-block">
-        <h1 class="main-title">api.hintify.io</h1>
+        <h1 class="main-title">api.sahdo.me</h1>
         <h3 class="main-subtitle">all rights reserved</h3>
     </div>
 </body>

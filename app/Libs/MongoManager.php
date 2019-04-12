@@ -194,31 +194,9 @@ class MongoManager
      * @param null $sort
      * @return bool|mixed
      */
-    public function getDocumentById($id, $collection, $limit=10, $sort=null)
+    public function getDocumentById($id, $collection)
     {
-        if (isset($sort)) {
-            $documents = $this->database->$collection->find(
-                [
-                    'id' => $id
-                ],
-                [
-                    'limit' => $limit,
-                    'sort' => $sort
-                ]
-            );
-        }
-        else {
-            $documents = $this->database->$collection->find(
-                [
-                    "id" => $id
-                ],
-                [
-                    "limit" => $limit
-                ]
-            );
-        }
-
-        // return iterator_to_array($documents);
+        $documents = $this->database->$collection->find(['id' => $id]);
 
         $res = array();
         foreach ($documents as $key => $value) {
@@ -311,6 +289,16 @@ class MongoManager
     public function getMongo()
     {
         return $this->database;
+    }
+
+    public function seq() {
+        $seq = $this->database->findAndModify([
+            'query' => array('posts'),
+            'update' => array('$inc' => array('seq' => 1)),
+            'new' => false
+        ]);
+
+        return $seq['value']['seq'];
     }
 
     /**
