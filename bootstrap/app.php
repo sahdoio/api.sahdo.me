@@ -100,6 +100,7 @@ $app->router->group([
 });
 
 $app->routeMiddleware([
+    'jwt.auth' => App\Http\Middleware\JwtMiddleware::class,
     'butler' => App\Http\Middleware\ButlerMiddleware::class,
 ]);
 

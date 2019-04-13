@@ -9,14 +9,16 @@ use Auth;
 class PostController extends Controller
 {
     private $butler;
+    private $request;
     private $provider;
 
     /**
      * ProviderController constructor.
      * @param Request $request
      */
-    function __construct()
+    function __construct(Request $request)
     {
+        $this->request = $request;
         $this->post = new Post;
     }
 
@@ -58,9 +60,9 @@ class PostController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function new(Request $request)
+    public function new()
     {
-        $response = $this->post->new($request->all());
+        $response = $this->post->new($this->request);
 
         if (!$response) {
             $response = [

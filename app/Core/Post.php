@@ -5,6 +5,7 @@ namespace App\Core;
 
 
 use App\Libs\MongoManager;
+use Illuminate\Http\Request;
 use MongoDB\BSON\UTCDateTime;
 
 class Post
@@ -14,11 +15,9 @@ class Post
     /**
      * Post constructor.
      */
-    function __construct()
+    function __construct($params=null)
     {
-        $dbas = env('DB_DATABASE');
-        $host = env('DB_HOST');
-        $this->database = new MongoManager($host, $dbas);
+        $this->database = new MongoManager(env('DB_HOST'), env('DB_DATABASE'));
     }
 
     /**
@@ -52,27 +51,30 @@ class Post
     }
 
     /**
+     * @param array $params
      * @return array|bool
      * @throws \Exception
      */
-    public function new($params)
+    public function new(Request $request)
     {
-        $product_id  = isset($this->params['product_id']) ? $this->params['product_id'] : false;
-        $content_id  = isset($this->params['content_id']) ? $this->params['content_id'] : false;
-        $visitor_id  = isset($this->params['visitor_id']) ? $this->params['visitor_id'] : false;
-        $from_us     = isset($this->params['from_us']) ? $this->params['from_us'] : false;
-        $query       = isset($this->params['query']) ? $this->params['query'] : false;
-        $timestamp   = time();
-        $created_at  = new UTCDateTime(new \DateTime());
+        $params         = $request->all();
+        $user           = $request->get('auth');
+
+        $post_id        = $this->database->getNextValue('posts.id');
+        $admin_user_id  = isset($user->id) ? $user->id : false;
+        $title          = isset($params['title']) ? $params['title'] : false;
+        $body           = isset($params['body']) ? $params['body'] : false;
+        $timestamp      = time();
+        $created_at     = new UTCDateTime(new \DateTime());
 
         try {
             $status = $this->database->insertDocument([
-                'id' => 1,
-                'admin_user_id' => 1,
-                'title' => 'Teste',
-                'body' => 'Este é um teste',
-                'created_at' => new UTCDateTime(new \DateTime()),
-                'timestamp' => time(),
+                'id' => $post_id,
+                'admin_user_id' => $admin_user_id,
+                'title' => $title,
+                'body' => $body,
+                'timestamp' => $timestamp,
+                'created_at' => $created_at
             ],
                 'posts'
             );

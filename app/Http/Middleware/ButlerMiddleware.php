@@ -24,6 +24,7 @@ class ButlerMiddleware
         }
 
         $request->attributes->add(['butler' => $butler]);
+        $request->butler = $butler;
 
         return $next($request);
     }

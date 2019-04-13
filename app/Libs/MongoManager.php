@@ -3,6 +3,7 @@
 namespace App\Libs;
 use LightnCandy\LightnCandy;
 use LightnCandy\Runtime;
+use MongoDB\BSON\UTCDateTime;
 use MongoDB\Client as MongoClient;
 
 class MongoManager
@@ -159,21 +160,27 @@ class MongoManager
      */
     public function getDocumentByField($field, $value, $collection, $limit=10, $sort=null)
     {
-        if (isset($sort))
-            $documents = $this->database->$collection
-                ->find([
+        if (isset($sort)) {
+            $documents = $this->database->$collection->find(
+                [
                     $field => $value
-                ])
-                ->limit($limit)
-                ->sort($sort);
-        else
-            $documents = $this->database->$collection
-                ->find([
+                ],
+                [
+                    'limit' => $limit,
+                    'sort' => $sort
+                ]
+            );
+        }
+        else {
+            $documents = $this->database->$collection->find(
+                [
                     $field => $value
-                ])
-                ->limit($limit);
-
-        // return iterator_to_array($documents);
+                ],
+                [
+                    "limit" => $limit
+                ]
+            );
+        }
 
         $res = array();
         foreach ($documents as $key => $value) {
@@ -303,14 +310,26 @@ class MongoManager
         return $this->database;
     }
 
-    public function seq() {
-        $seq = $this->database->findAndModify([
-            'query' => array('posts'),
-            'update' => array('$inc' => array('seq' => 1)),
-            'new' => false
-        ]);
+    public function getNextValue($field) {
+        $document = $this->database->counters->findOneAndUpdate(
+            ['id' => $field],
+            ['$inc' => ['seq' => 1]]
+        );
 
-        return $seq['value']['seq'];
+        if (!$document) {
+            $document = $this->database->counters->insertOne([
+                'id' => $field,
+                'seq' => 1,
+                'created_at' => new UTCDateTime(new \DateTime()),
+                'timestamp' => time(),
+            ]);
+        }
+
+        if (!isset($document['seq'])) {
+            return false;
+        }
+
+        return $document['seq'];
     }
 
     /**
