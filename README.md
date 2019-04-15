@@ -83,6 +83,6 @@ Agora, conforme disse anteriormente mostrarei como configurei o virtualhost do m
     
 # Banco de dados
 
-![Drag Racing](extra/database.png)
+![Database](extra/database.png)
 
 
