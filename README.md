@@ -80,4 +80,9 @@ Agora, conforme disse anteriormente mostrarei como configurei o virtualhost do m
            add_header Access-Control-Allow-Origin *;
         }
     }
+    
+# Banco de dados
+
+![Drag Racing](extra/database.png)
+
 
