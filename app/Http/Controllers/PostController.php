@@ -25,7 +25,7 @@ class PostController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function one($id)
+    public function findPost($id)
     {
         $id = intval($id);
         $response = $this->post->one($id);
@@ -43,7 +43,7 @@ class PostController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function all()
+    public function allPosts()
     {
         $response = $this->post->all();
 
@@ -60,7 +60,7 @@ class PostController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function new()
+    public function newPost()
     {
         $response = $this->post->new($this->request);
 
