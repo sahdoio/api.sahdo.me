@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt_br">
 <head>
-    <title>Hintify.io - Search and Recommendation System</title>
+    <title>api.sahdo.me</title>
     <meta charset="UTF-8" />
     <style>
         body {
