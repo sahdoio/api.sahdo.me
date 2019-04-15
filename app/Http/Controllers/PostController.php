@@ -45,6 +45,7 @@ class PostController extends Controller
      */
     public function allPosts()
     {
+        dd('teste');
         $response = $this->post->all();
 
         if (!$response) {
