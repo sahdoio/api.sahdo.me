@@ -81,7 +81,7 @@ Agora, conforme disse anteriormente mostrarei como configurei o virtualhost do m
         }
     }
     
-# Banco de dados
+## Banco de dados
 
 ![Database](extra/database.png)
 
