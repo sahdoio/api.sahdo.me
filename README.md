@@ -21,7 +21,7 @@ Esse comando irá instalar todas a dependências do composer na pasta vendor do 
 
 Feito isso você irá precisar criar um arquivo de configuração .env na raiz do projeto.
     
-E cole a seguinte configuração:
+Crie o arquivo .env e cole a seguinte configuração:
 
     APP_ENV=local
     APP_DEBUG=true
