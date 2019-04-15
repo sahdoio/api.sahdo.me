@@ -44,8 +44,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function allPosts()
-    {
-        dd('teste');
+    {       
         $response = $this->post->all();
 
         if (!$response) {
