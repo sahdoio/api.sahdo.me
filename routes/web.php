@@ -40,7 +40,7 @@ $router->get('/posts/comments/{comment_id}', ['as' => 'posts.comments.one', 'use
 ######################################
 */
 
-$router->post('/comments/{post_id}', ['as' => 'comments.new', 'uses' => 'PostController@newComment']);
+$router->post('/posts/{post_id}/comments', ['as' => 'posts.comments.new', 'uses' => 'PostController@newComment']);
 
 
 /*

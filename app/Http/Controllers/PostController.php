@@ -25,10 +25,9 @@ class PostController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function singlePost($id)
-    {
-        $id = intval($id);
-        $response = $this->post->one($id);
+    public function singlePost($post_id)
+    {       
+        $response = $this->post->one($post_id);
 
         if (!$response) {
             $response = [
@@ -78,8 +77,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function postComments($post_id)
-    {
-        $post_id = intval($post_id);
+    {        
         $response = $this->post->comments($post_id);
 
         if (!$response) {

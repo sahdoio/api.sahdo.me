@@ -24,10 +24,11 @@ class Post
      * @return array|bool
      * @throws \Exception
      */
-    public function one($id)
+    public function one($post_id)
     {
+        $post_id = intval($post_id);
         try {
-            $document = $this->database->getDocumentById($id, 'posts');
+            $document = $this->database->getDocumentById($post_id, 'posts');
             return $document;
         }
         catch (Execption $e) {
@@ -91,12 +92,15 @@ class Post
      */
     public function comments($post_id)
     {
+        $post_id = intval($post_id);
         try {
             $documents = $this->database->getDocumentsByQuery(
                 [
                     'post_id' => $post_id
                 ],
-                'post_comments'
+                'post_comments',
+                100,
+                ['id' => -1]
             );
 
             return $documents;
