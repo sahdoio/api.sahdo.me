@@ -39,7 +39,7 @@ class AuthController extends BaseController
             'iss' => "lumen-jwt", // Issuer of the token
             'sub' => $user->id, // Subject of the token
             'iat' => time(), // Time when JWT was issued.
-            'exp' => time() + 60*60 // Expiration time
+            'exp' => time() + 7*24*60*60 // Expiration time - 7 days
         ];
 
         // As you can see we are passing `JWT_SECRET` as the second parameter that will
@@ -66,7 +66,7 @@ class AuthController extends BaseController
 
         $user = User::where('email', $this->request->input('email'))->first();
         */
-        $user = $this->database->getDocumentByField('email', $this->request->email,'admin_users');
+        $user = $this->database->getDocumentByField('email', $this->request->email, 'admin_users');
         if (!$user) {
             return response()->json([
                 'error' => 'Email does not exist'

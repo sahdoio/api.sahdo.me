@@ -58,7 +58,7 @@ class JwtMiddleware
         $user = $this->database->getDocumentById($credentials->sub,'admin_users');
 
         // Now let's put the user in the request class so that you can grab it from there
-        $request->attributes->add(['auth' => $user]);
+        $request->attributes->add(['admin_auth' => $user]);
         $request->auth = $user;
 
         return $next($request);

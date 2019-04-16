@@ -55,11 +55,10 @@ class Post
      * @return array|bool
      * @throws \Exception
      */
-    public function new(Request $request)
+    public function newPost(Request $request)
     {
         $params         = $request->all();
-        $user           = $request->get('auth');
-
+        $user           = $request->get('admin_auth');
         $post_id        = $this->database->getNextValue('posts.id');
         $admin_user_id  = isset($user->id) ? $user->id : false;
         $title          = isset($params['title']) ? $params['title'] : false;
@@ -116,6 +115,43 @@ class Post
         try {
             $document = $this->database->getDocumentById($comment_id, 'post_comments');
             return $document;
+        }
+        catch (Execption $e) {
+            return false;
+        }
+    }
+
+    /**
+     * @param array $params
+     * @return array|bool
+     * @throws \Exception
+     */
+    public function newComment($post_id, Request $request)
+    {
+        $user           = $request->get('auth');
+        $comment_id     = $this->database->getNextValue('comments.id');   
+        $post_id        = intval($post_id);
+        $body           = $request->body;
+        $timestamp      = time();
+        $created_at     = new UTCDateTime(new \DateTime());
+
+        try {
+            $status = $this->database->insertDocument([
+                'id' => $comment_id,
+                'post_id' => $post_id,
+                'user' => [
+                    'id' => ($user) ? $user->id : null,
+                    'name' => ($user) ? $user->name : null,
+                    'email' => ($user) ? $user->email : null
+                ],                
+                'body' => $body,
+                'timestamp' => $timestamp,
+                'created_at' => $created_at
+            ],
+                'post_comments'
+            );
+
+            return $status;
         }
         catch (Execption $e) {
             return false;

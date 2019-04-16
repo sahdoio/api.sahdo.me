@@ -36,7 +36,16 @@ $router->get('/posts/comments/{comment_id}', ['as' => 'posts.comments.one', 'use
 
 /*
 ######################################
-# JWT protected routes
+# JWT protected routes for users
+######################################
+*/
+
+$router->post('/comments/{post_id}', ['as' => 'comments.new', 'uses' => 'PostController@newComment']);
+
+
+/*
+######################################
+# JWT protected routes for admin users
 ######################################
 */
 $router->group(['middleware' => 'jwt.auth'], function() use ($router) {

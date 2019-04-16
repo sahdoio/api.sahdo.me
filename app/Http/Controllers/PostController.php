@@ -62,7 +62,7 @@ class PostController extends Controller
      */
     public function newPost()
     {
-        $response = $this->post->new($this->request);
+        $response = $this->post->newPost($this->request);
 
         if (!$response) {
             $response = [
@@ -104,6 +104,24 @@ class PostController extends Controller
             $response = [
                 'status' => 'ok',
                 'message' => "there were no results found"
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function newComment($post_id)
+    {
+        $response = $this->post->newComment($post_id, $this->request);
+
+        if (!$response) {
+            $response = [
+                'status' => 'error',
+                'message' => "error to insert post"
             ];
         }
 
