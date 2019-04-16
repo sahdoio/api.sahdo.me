@@ -127,8 +127,8 @@ class MongoManager
      * @param null $sort
      * @return mixed
      */
-    public function getDocumentsByQuery($filter, $collection, $limit=10, $sort=null)
-    {
+    public function getDocumentsByQuery($filter, $collection, $limit=100, $sort=null)
+    {  
         if (isset($sort)) {
             $documents = $this->database->$collection->find(
                 $filter,
@@ -147,7 +147,13 @@ class MongoManager
             );
         }
 
-        return $documents;
+        $res = array();
+
+        foreach ($documents as $key => $value) {
+            $res[$key] = $value;
+        }
+
+        return $res;
     }
 
     /**
@@ -158,7 +164,7 @@ class MongoManager
      * @param null $sort
      * @return bool|mixed
      */
-    public function getDocumentByField($field, $value, $collection, $limit=10, $sort=null)
+    public function getDocumentByField($field, $value, $collection, $limit=100, $sort=null)
     {
         if (isset($sort)) {
             $documents = $this->database->$collection->find(
@@ -183,14 +189,12 @@ class MongoManager
         }
 
         $res = array();
+
         foreach ($documents as $key => $value) {
-            $res[] = $value;
+            $res[$key] = $value;
         }
 
-        if (!isset($res[0]))
-            return false;
-
-        return $res[0];
+        return $res;
     }
 
     /**
@@ -221,7 +225,7 @@ class MongoManager
      * @param int $limit
      * @return bool
      */
-    public function collectionAggregate($filter, $collection, $limit=999999)
+    public function collectionAggregate($filter, $collection, $limit=1009)
     {
         $cursor = $this->database->$collection->aggregate(
             $filter
@@ -241,7 +245,7 @@ class MongoManager
      * @param null $sort
      * @return array
      */
-    public function getDocuments($collection, $limit=10, $sort=null)
+    public function getDocuments($collection, $limit=100, $sort=null)
     {
         if (isset($sort)) {
             $documents = $this->database->$collection->find(

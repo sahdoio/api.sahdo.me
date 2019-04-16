@@ -42,7 +42,7 @@ class Post
     public function all()
     {
         try {
-            $document = $this->database->getDocuments('posts', 99999);
+            $document = $this->database->getDocuments('posts');
             return $document;
         }
         catch (Execption $e) {
@@ -80,6 +80,42 @@ class Post
             );
 
             return $status;
+        }
+        catch (Execption $e) {
+            return false;
+        }
+    }
+
+    /**
+     * @return array|bool
+     * @throws \Exception
+     */
+    public function comments($post_id)
+    {
+        try {
+            $documents = $this->database->getDocumentsByQuery(
+                [
+                    'post_id' => $post_id
+                ],
+                'post_comments'
+            );
+
+            return $documents;
+        }
+        catch (Execption $e) {
+            return false;
+        }
+    }
+
+    /**
+     * @return array|bool
+     * @throws \Exception
+     */
+    public function singleComment($comment_id)
+    {
+        try {
+            $document = $this->database->getDocumentById($comment_id, 'post_comments');
+            return $document;
         }
         catch (Execption $e) {
             return false;

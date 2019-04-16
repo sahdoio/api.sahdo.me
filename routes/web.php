@@ -29,10 +29,10 @@ $router->post('auth/login', ['uses' => 'AuthController@authenticate']);
 ######################################
 */
 
-$router->get('/posts/{post_id}', ['as' => 'posts.one', 'uses' => 'PostController@findPost']);
+$router->get('/posts/{post_id}', ['as' => 'posts.one', 'uses' => 'PostController@singlePost']);
 $router->get('/posts', ['as' => 'posts.all', 'uses' => 'PostController@allPosts']);
-$router->get('/posts/{post_id}/comments/{comment_id}', ['as' => 'posts.comments.one', 'uses' => 'PostController@findComment']);
-$router->get('/posts/{post_id}/comments', ['as' => 'posts.comments', 'uses' => 'PostController@alComments']);
+$router->get('/posts/{post_id}/comments', ['as' => 'posts.comments', 'uses' => 'PostController@postComments']);
+$router->get('/posts/comments/{comment_id}', ['as' => 'posts.comments.one', 'uses' => 'PostController@singleComment']);
 
 /*
 ######################################

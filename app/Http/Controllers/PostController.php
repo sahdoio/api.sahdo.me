@@ -25,7 +25,7 @@ class PostController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function findPost($id)
+    public function singlePost($id)
     {
         $id = intval($id);
         $response = $this->post->one($id);
@@ -68,6 +68,42 @@ class PostController extends Controller
             $response = [
                 'status' => 'error',
                 'message' => "error to insert post"
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postComments($post_id)
+    {
+        $post_id = intval($post_id);
+        $response = $this->post->comments($post_id);
+
+        if (!$response) {
+            $response = [
+                'status' => 'ok',
+                'message' => "there were no results found"
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function singleComment($comment_id)
+    {
+        $comment_id = intval($comment_id);
+        $response = $this->post->singleComment($comment_id);
+
+        if (!$response) {
+            $response = [
+                'status' => 'ok',
+                'message' => "there were no results found"
             ];
         }
 
