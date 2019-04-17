@@ -9,11 +9,29 @@
 api.sahdo.me é uma api rest desenvolvida em PHP com o microframework Lumen 5.6.4. Ele é responsável por todo o backend do website sahdo.me.
 Para testar a aplicação acesse [sahdo.me](http://sahdo.me) 
 
+## Tech Stack utilizada neste projeto
+
+- Servidor Linux Ubuntu 18.04 (Digital ocean)
+- nginx
+- Lumen 5.6.4
+- php 7.2
+- mongodb
+
+## Instalando o php e bibliotecas necessárias
+
+    sudo apt-get install php7.2 php7.2-soap php7.2-fpm php7.2-xml php7.2-bcmath php7.2-mbstring php7.2-mysql php7.2-curl php2-mongodb
+
+Se tiver faltando alguma dependência, o composer irá apontar posteriormente, e então será necessário instalar a dependência manualmente.
+
+## MongoDB
+
+A conexão com o mongo pode ser local, mas já deixei o projeto apontando para meu servidor remoto, de forma que não se faz necessária a configuração local do mesmo. mas é opcional. Se quiser configurar no ambiente local será necessário criar o banco de dados "sahdo_me" e alterar as configurações no .env na raiz do projeto.
+
 ## Setup
 
 Para simular o projeto em ambiente local você vai precisar configurar um servidor nginx ou apache. Não entrarei em muitos detahes, mas fornecerei o setup que utilizei com nginx.
 
-O primiero passo é baixar o projeto e executar o seguinte comando:
+O primeiro passo é baixar o projeto e executar o seguinte comando:
 
     composer update
         
@@ -84,5 +102,34 @@ Agora, conforme disse anteriormente mostrarei como configurei o virtualhost do m
 ## Banco de dados
 
 ![Database](extra/database.png)
+
+Agora vamos alimentar a base de dados "sahdo_me" com os dados fakes dos seguintes place holders:
+
+    1. https://jsonplaceholder.typicode.com/posts 
+    2. https://jsonplaceholder.typicode.com/comments 
+    3. https://jsonplaceholder.typicode.com/users 
+
+Para isso basta digitar o seguinte comando na raiz do projeto:
+
+    php artisan db:seed --class=FeedDatabaseSeeder 
+
+## Infra
+
+A infra em um cenário de muitas requests foi pensada para funcionar da seguinte maneira:
+
+![Database](extra/infra.png)
+
+Primeiramente, para segurar a carga inicial temos o sistema de caching do cloud flare, este ficaria configurado para cachear todas as rotas com respostas repetitivas, economizando hits diretos nos servidores de api.
+
+Os servidores de api por sua vez, ficam em load balancer, distribuindo a carga das requests que a eles chegam.
+
+na terceira etapa temos a camada de banco de dados em servidores isolados. Aqui podemos usar tanto o sistema de Replica Set do MongoDB como o sistema de Sharding. O Replica Set tem o propósito de manter servidores "clones" para garantir uma rápida ação de restauração de serviço em caso do servidor primário falhar.
+
+O Sharding por sua vez visa distribuir a carga de consultas e updates em uma série de servidores, o que pensando a nível de performance é mais interessante.
+
+O sistema dessa forma fica escalável, pois podemos tanto ter de 2 a N servidores de api em load balancer, como também de 2 a N servidores em Sharding. por experência própria posso dizer que os servidores do Mongo são os que mais se estressam nesse modelo de Infra, então ele vão ser os que mais vão utilizar recursos e eventualmente precisarão ser escalados.
+
+O sistema de caching como o cloud flare ajuda de forma muito significativa nesse processo, gerando economia de bons valores de infra apenas cacheando rotas repetitivas. 
+
 
 
