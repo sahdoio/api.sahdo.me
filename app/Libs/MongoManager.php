@@ -86,16 +86,51 @@ class MongoManager
      * @return array
      */
     public function updateDocumentById($id, $content, $collection) {
-        $res = array();
+        $res = [];
 
         try {
-            $collection = $this->database->$collection->update(array("id"=>$id),$content);
+            $collection = $this->database->$collection->updateOne(
+                ["id" => $id],
+                ['$set' => $content]
+            );
+
             $res["status"] = true;
         }
         catch (Exeception $e) {
             $res["status"] = false;
             $res["error"] = $e;
         }
+
+        return $res;
+    }
+
+    /*
+     #########################################
+     * Delete Methods
+     *########################################
+     */
+
+    /**
+     * @param $id
+     * @param $content
+     * @param $collection
+     * @return array
+     */
+    public function deleteDocumentById($id, $collection) {
+        $res = [];
+
+        try {
+            $collection = $this->database->$collection->deleteOne(
+                ["id" => $id]
+            );
+
+            $res["status"] = true;
+        }
+        catch (Exeception $e) {
+            $res["status"] = false;
+            $res["error"] = $e;
+        }
+
         return $res;
     }
 
@@ -333,7 +368,7 @@ class MongoManager
                 'timestamp' => time(),
             ]);
 
-            $document = $this->database->findOne(['id' => $field]);
+            $document = $this->database->counters->findOne(['id' => $field]);
         }
 
         if (!isset($document['seq'])) {

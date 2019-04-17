@@ -53,12 +53,22 @@ class AuthController extends BaseController
      * @param  \App\User   $user
      * @return mixed
      */
-    public function authenticate(User $user)
-    {
+    public function authenticate()
+    {   
         $this->validate($this->request, [
             'email'     => 'required|email',
             'password'  => 'required'
         ]);
+
+        // type 1 - normal users
+        // type 2 - admin users
+        $type = $this->request->get('type');
+        $type = $type ? $type : 1;
+
+        $database = 'users';
+        if ($type == 2) {
+            $database = 'admin_users';
+        }
 
         // Find the user by email
         /*
@@ -66,23 +76,48 @@ class AuthController extends BaseController
 
         $user = User::where('email', $this->request->input('email'))->first();
         */
-        $user = $this->database->getDocumentByField('email', $this->request->email, 'admin_users');
+
+        // mongo mode
+        $user = $this->database->getDocumentByField(
+            'email', 
+            $this->request->email, 
+            $database
+        );
+
         if (!$user) {
             return response()->json([
-                'error' => 'Email does not exist'
-            ], 400);
+                'status' => 'error',
+                'message' => 'Email does not exist'
+            ]);
         }
 
         // Verify the password and generate the token
         if (Hash::check($this->request->input('password'), $user->password)) {
             return response()->json([
+                'status' => 'ok',
                 'token' => $this->jwt($user)
-            ], 200);
+            ]);
         }
 
         // Bad Request response
         return response()->json([
-            'error' => 'Email or password is wrong'
-        ], 400);
+            'status' => 'error',
+            'message' => 'Email or password is wrong'
+        ]);
+    }
+
+    /**
+     * Verify auth
+     *
+     * @param  \App\User   $user
+     * @return mixed
+     */
+    public function verify()
+    {
+        // if gets here, it is every thing ok
+        return [
+            'status' => 'ok',
+            'message' => "token is ok"
+        ];
     }
 }

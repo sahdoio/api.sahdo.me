@@ -76,6 +76,40 @@ class PostController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
+    public function updatePost($post_id)
+    {
+        $response = $this->post->updatePost($post_id, $this->request);
+
+        if (!$response) {
+            $response = [
+                'status' => 'error',
+                'message' => "error to update post"
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deletePost($post_id)
+    {
+        $response = $this->post->deletePost($post_id);
+
+        if (!$response) {
+            $response = [
+                'status' => 'error',
+                'message' => "error to delete post"
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function postComments($post_id)
     {        
         $response = $this->post->comments($post_id);

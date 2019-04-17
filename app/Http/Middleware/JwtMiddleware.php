@@ -42,13 +42,15 @@ class JwtMiddleware
         }
         catch (ExpiredException $e) {
             return response()->json([
-                'error' => 'Provided token is expired.'
-            ], 400);
+                'status' => 'expired',
+                'message' => 'Provided token is expired'
+            ]);
         }
         catch (Exception $e) {
             return response()->json([
-                'error' => 'An error while decoding token.'
-            ], 400);
+                'status' => 'error',
+                'message' => 'An error while decoding token'                
+            ]);
         }
 
         // Mysql Mode
