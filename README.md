@@ -129,11 +129,11 @@ O Sharding por sua vez visa distribuir a carga de consultas e updates em uma sé
 
 O sistema dessa forma fica escalável, pois podemos tanto ter de 2 a N servidores de api em load balancer, como também de 2 a N servidores em Sharding. Por experiência própria posso dizer que os servidores do Mongo são os que mais se "estressam" nesse processo, então eles serão os servidores que mais vão utilizar recursos e eventualmente precisarão ser escalados.
 
-O sistema de caching como o cloud flare ajuda de forma muito significativa nesse processo, gerando economia de bons valores de infra apenas cacheando rotas repetitivas.
+O sistema de caching como o cloud flare ajuda de forma muito significativa nesse modelo, gerando economia de bons valores de infra apenas cacheando rotas repetitivas.
 
 ## Deploy
 
-Eu particulamente gosto de trabalhar com o bitbucket para deploy dos meus projetos. O bitbucket tem uma ferramente de deploy automático excelente. Então supondo que estamos utilizando a metodologia git flow para versionamento, ao mergear a branch de uma feature na master, automáticamente o commit vai para produção. Para eventuais rollbacks basta voltar ao commit anterior mais estável. 
+Eu particulamente gosto de trabalhar com o bitbucket para deploy dos meus projetos. O bitbucket tem uma ferramente de deploy automático excelente. Então supondo que estamos utilizando a metodologia git flow para versionamento, ao mergear a branch de uma feature na master, automaticamente o commit vai subir para a produção. Em caso de eventuais rollbacks basta voltar ao commit anterior mais estável. 
 
 
 
