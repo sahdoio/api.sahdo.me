@@ -151,8 +151,8 @@ class Post
                     'post_id' => $post_id
                 ],
                 'post_comments',
-                100,
-                ['id' => -1]
+                1000,
+                ['timestamp' => -1]
             );
 
             return $documents;
