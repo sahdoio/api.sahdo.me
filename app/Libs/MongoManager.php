@@ -162,7 +162,7 @@ class MongoManager
      * @param null $sort
      * @return mixed
      */
-    public function getDocumentsByQuery($filter, $collection, $limit=100, $sort=null)
+    public function getDocumentsByQuery($filter, $collection, $limit=1000, $sort=null)
     {  
         if (isset($sort)) {
             $documents = $this->database->$collection->find(
@@ -199,7 +199,7 @@ class MongoManager
      * @param null $sort
      * @return bool|mixed
      */
-    public function getDocumentByField($field, $value, $collection, $limit=100, $sort=null)
+    public function getDocumentByField($field, $value, $collection, $limit=1000, $sort=null)
     {
         if (isset($sort)) {
             $documents = $this->database->$collection->find(
@@ -262,7 +262,7 @@ class MongoManager
      * @param int $limit
      * @return bool
      */
-    public function collectionAggregate($filter, $collection, $limit=1009)
+    public function collectionAggregate($filter, $collection, $limit=10009)
     {
         $cursor = $this->database->$collection->aggregate(
             $filter
@@ -282,7 +282,7 @@ class MongoManager
      * @param null $sort
      * @return array
      */
-    public function getDocuments($collection, $limit=100, $sort=null)
+    public function getDocuments($collection, $limit=1000, $sort=null)
     {
         if (isset($sort)) {
             $documents = $this->database->$collection->find(
