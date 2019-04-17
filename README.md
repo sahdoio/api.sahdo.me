@@ -133,7 +133,7 @@ O sistema de caching como o cloud flare ajuda de forma muito significativa nesse
 
 ## Deploy
 
-Eu particulamente gosto de trabalhar com o bitbucket para deploy dos meus projetos.O bitbucket tem uma ferramente de deploy automático excelente. Então supondo que estamos utilizando a metodologia git flow para versionamento, ao mergear a branch de uma feature na master, automáticamente o commit vai para produção. Para eventuais rollbacks basta voltar ao commit anterior mais estável. 
+Eu particulamente gosto de trabalhar com o bitbucket para deploy dos meus projetos. O bitbucket tem uma ferramente de deploy automático excelente. Então supondo que estamos utilizando a metodologia git flow para versionamento, ao mergear a branch de uma feature na master, automáticamente o commit vai para produção. Para eventuais rollbacks basta voltar ao commit anterior mais estável. 
 
 
 
