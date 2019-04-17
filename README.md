@@ -129,7 +129,7 @@ O Sharding por sua vez visa distribuir a carga de consultas e updates em uma sé
 
 O sistema dessa forma fica escalável, pois podemos tanto ter de 2 a N servidores de api em load balancer, como também de 2 a N servidores em Sharding. Por experiência própria posso dizer que os servidores do Mongo são os que mais se "estressam" nesse processo, então eles serão os servidores que mais vão utilizar recursos e eventualmente precisarão ser escalados.
 
-Os sistemas de caching, assim como como o cloud flare, ajudam de forma muito significativa nesse modelo, gerando economia de bons valores de infra apenas cacheando rotas repetitivas.
+Os sistemas de caching, assim como o cloud flare, ajudam de forma muito significativa nesse modelo, gerando economia de bons valores de infra apenas cacheando rotas repetitivas.
 
 ## Deploy
 
