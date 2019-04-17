@@ -43,7 +43,7 @@ class Post
     public function all()
     {
         try {
-            $document = $this->database->getDocuments('posts');
+            $document = $this->database->getDocuments('posts', 1000, ['timestamp'=>-1]);
             return $document;
         }
         catch (Execption $e) {
