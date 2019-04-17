@@ -123,7 +123,7 @@ Primeiramente, para segurar a carga inicial temos o sistema de caching do cloud 
 
 Os servidores de api por sua vez, ficam em load balancer, distribuindo a carga das requests que a eles chegam.
 
-na terceira etapa temos a camada de banco de dados em servidores isolados. Aqui podemos usar tanto o sistema de Replica Set do MongoDB como o sistema de Sharding. O Replica Set tem o propósito de manter servidores "clones" para garantir uma rápida ação de restauração de serviço em caso do servidor primário falhar.
+Na terceira etapa temos a camada de banco de dados em servidores isolados. Aqui podemos usar tanto o sistema de Replica Set do MongoDB como o sistema de Sharding. O Replica Set tem o propósito de manter servidores "clones" para garantir uma rápida ação de restauração de serviço em caso do servidor primário falhar.
 
 O Sharding por sua vez visa distribuir a carga de consultas e updates em uma série de servidores, o que pensando a nível de performance é mais interessante.
 
@@ -133,7 +133,7 @@ O sistema de caching como o cloud flare ajuda de forma muito significativa nesse
 
 ## Deploy
 
-Eu particulamente gosto de trabalhar com o bitbucket para deploy dos meus projetos. o Bitbkut tem uma ferramente de deploy automático excelente. então supondo que estamos utilizando a metodologia git flow para versionamento, ao mergear a branch de uma feature na master, automáticamente o commit vai para produção. Para eventuais rollbacks basta voltar ao commit anterior mais estável. 
+Eu particulamente gosto de trabalhar com o bitbucket para deploy dos meus projetos.O bitbucket tem uma ferramente de deploy automático excelente. Então supondo que estamos utilizando a metodologia git flow para versionamento, ao mergear a branch de uma feature na master, automáticamente o commit vai para produção. Para eventuais rollbacks basta voltar ao commit anterior mais estável. 
 
 
 
