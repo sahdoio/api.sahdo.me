@@ -127,7 +127,7 @@ Na terceira etapa temos a camada de banco de dados em servidores isolados. Aqui 
 
 O Sharding por sua vez visa distribuir a carga de consultas e updates em uma série de servidores, o que pensando a nível de performance é mais interessante.
 
-O sistema dessa forma fica escalável, pois podemos tanto ter de 2 a N servidores de api em load balancer, como também de 2 a N servidores em Sharding. por experência própria posso dizer que os servidores do Mongo são os que mais se estressam nesse modelo de Infra, então ele vão ser os que mais vão utilizar recursos e eventualmente precisarão ser escalados.
+O sistema dessa forma fica escalável, pois podemos tanto ter de 2 a N servidores de api em load balancer, como também de 2 a N servidores em Sharding. Por experência própria posso dizer que os servidores do Mongo são os que mais se estressam nesse modelo de Infra, então ele vão ser os que mais vão utilizar recursos e eventualmente precisarão ser escalados.
 
 O sistema de caching como o cloud flare ajuda de forma muito significativa nesse processo, gerando economia de bons valores de infra apenas cacheando rotas repetitivas.
 
