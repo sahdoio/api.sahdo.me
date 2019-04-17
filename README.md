@@ -54,6 +54,8 @@ Crie o arquivo .env e cole a seguinte configuração:
     DB_PORT=3306
     DB_DATABASE=sahdo_me
     
+    JWT_SECRET=JhbGciOiJIUzI1N0eXAiOiJKV1QiLC
+    
 Vamos precisar alterar algumas permissões, primeiramente digite:
     
     sudo chgrp -R www-data storage
